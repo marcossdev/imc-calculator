@@ -1,0 +1,12 @@
+table {
+	width: 260px;
+	border-collapse: collapse;
+	font-size: 12px;
+	font-weight: 300;
+}
+
+th,
+td {
+	border-bottom: 1px solid rgba(221, 221, 221, 0.302);
+	padding: 2px;
+}
