@@ -116,7 +116,7 @@ function Imc() {
     setHeight('');
     setWeight('');
   };
-
+  // s
   return (
     <div className="Imc">
       <div className="main-container">
