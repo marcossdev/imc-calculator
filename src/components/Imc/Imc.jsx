@@ -64,17 +64,14 @@ function Imc() {
       case height === '' && weight === '':
         setError(true);
         setMessage('Os campos não podem estar vazios!');
-        setTimeout(() => setError(false), 5000);
         return true;
       case height === '':
         setError(true);
         setMessage('O campo de altura não pode estar vazio!');
-        setTimeout(() => setError(false), 5000);
         return true;
       case weight === '':
         setError(true);
         setMessage('O campo de peso não pode estar vazio!');
-        setTimeout(() => setError(false), 5000);
         return true;
 
       default:
@@ -93,7 +90,6 @@ function Imc() {
       if (regex.test(m) === false) {
         setMessage('A altura deve ser em metros!');
         setError(true);
-        setTimeout(() => setError(false), 5000);
         return false;
       }
       const result = (kg / m ** 2).toFixed(1);
@@ -149,7 +145,7 @@ function Imc() {
   };
 
   const handleClose = (reason) => {
-    if (reason === 'clickway') {
+    if (reason === 'clickaway') {
       return;
     }
     setError(false);
@@ -209,7 +205,11 @@ function Imc() {
           </button>
         </div>
       </div>
-      <Snackbar open={error} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+      <Snackbar
+        open={error}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <Alert onClose={handleClose} severity="error" variant="filled">
           {message}
         </Alert>
