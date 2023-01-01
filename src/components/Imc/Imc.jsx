@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Alert, Snackbar } from '@mui/material';
 import Table from '../Table/Table';
 import './Imc.css';
 
@@ -8,7 +9,11 @@ function Imc() {
   const [imc, setImc] = useState('');
   const [classification, setClassification] = useState('');
   const [classAlert, setClassAlert] = useState('');
+
   const [hide, setHide] = useState(false);
+
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState('');
 
   const column = [
     { header: 'IMC', value: 'classification' },
@@ -54,19 +59,44 @@ function Imc() {
     },
   ];
 
-  const checkInputs = () => {
-    if (height === '' && weight === '') {
-      return false;
+  const validateInputs = () => {
+    switch (true) {
+      case height === '' && weight === '':
+        return (
+          setError(true),
+          setMessage('Os campos não podem estar vazios!'),
+          setTimeout(() => setError(false), 3000),
+          true
+        );
+      case height === '':
+        setError(true);
+        setMessage('O campo de altura não pode estar vazio!');
+        setTimeout(() => setError(false), 3000);
+        return true;
+      case weight === '':
+        setError(true);
+        setMessage('O campo de peso não pode estar vazio!');
+        setTimeout(() => setError(false), 3000);
+        return true;
+
+      default:
+        setMessage('');
+        setError(false);
+        return false;
     }
-    return true;
   };
 
   const calcIMC = () => {
-    const inputsCheck = checkInputs();
+    const validation = validateInputs();
     const regex = /(\d*)(\.|,)(\d*)/;
     const m = +height.replace(',', '.');
     const kg = +weight.replace(',', '.');
-    if (inputsCheck !== false && regex.test(m) !== false) {
+    if (validation === false) {
+      if (regex.test(m) === false) {
+        setMessage('A altura deve ser em metros!');
+        setError(true);
+        return false;
+      }
       const result = (kg / m ** 2).toFixed(1);
       return result;
     }
@@ -117,6 +147,13 @@ function Imc() {
     e.preventDefault();
     setHeight('');
     setWeight('');
+  };
+
+  const handleClose = (reason) => {
+    if (reason === 'clickway') {
+      return;
+    }
+    setError(false);
   };
 
   return (
@@ -173,6 +210,14 @@ function Imc() {
           </button>
         </div>
       </div>
+      <Snackbar
+        open={error}
+        autoHideDuration={5000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+        <Alert onClose={handleClose} severity="error" variant="filled">
+          {message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
