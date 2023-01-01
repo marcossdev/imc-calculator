@@ -75,8 +75,12 @@ button {
 }
 
 .calc:active,
-.back:active,
+.back:active {
+  background-color: #2949c6;
+  transform: scale(0.95);
+}
 .clean:active {
+  background-color: #c62929;
   transform: scale(0.95);
 }
 

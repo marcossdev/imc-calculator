@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import Table from '../Table/Table';
 import './Imc.css';
 
@@ -8,16 +8,12 @@ function Imc() {
   const [imc, setImc] = useState('');
   const [classification, setClassification] = useState('');
   const [classAlert, setClassAlert] = useState('');
-
   const [hide, setHide] = useState(false);
-
-  const mainCalc = useRef(null);
-  const resultCalc = useRef(null);
 
   const column = [
     { header: 'IMC', value: 'classification' },
     { header: 'Classificação', value: 'info' },
-    { header: 'Obesidade', value: 'obesity' }
+    { header: 'Obesidade', value: 'obesity' },
   ];
 
   const data = [
@@ -26,43 +22,51 @@ function Imc() {
       max: 18.4,
       classification: 'Menor que 18,5',
       info: 'Magreza',
-      obesity: '0'
+      obesity: '0',
     },
     {
       min: 18.5,
       max: 24.9,
       classification: 'Entre 18,5 e 24,9',
       info: 'Normal',
-      obesity: '0'
+      obesity: '0',
     },
     {
       min: 25,
       max: 29.9,
       classification: 'Entre 25,0 e 29,9',
       info: 'Sobrepeso',
-      obesity: 'I'
+      obesity: 'I',
     },
     {
       min: 30,
       max: 39.9,
       classification: 'Entre 30,0 e 39,9',
       info: 'Obesidade',
-      obesity: 'II'
+      obesity: 'II',
     },
     {
       min: 40,
       max: 99,
       classification: 'Maior que 40,0',
       info: 'Obesidade grave',
-      obesity: 'III'
-    }
+      obesity: 'III',
+    },
   ];
 
+  const checkInputs = () => {
+    if (height === '' && weight === '') {
+      return false;
+    }
+    return true;
+  };
+
   const calcIMC = () => {
+    const inputsCheck = checkInputs();
+    const regex = /(\d*)(\.|,)(\d*)/;
     const m = +height.replace(',', '.');
     const kg = +weight.replace(',', '.');
-    const regex = /(\d*)(\.)(\d*)$/;
-    if (regex.test(m) === true && kg !== '') {
+    if (inputsCheck !== false && regex.test(m) !== false) {
       const result = (kg / m ** 2).toFixed(1);
       return result;
     }
@@ -86,8 +90,6 @@ function Imc() {
 
   const changeState = () => {
     setHide(!hide);
-    mainCalc.current.classList.toggle('hide');
-    resultCalc.current.classList.toggle('hide');
   };
 
   const getClassification = () => {
@@ -120,7 +122,7 @@ function Imc() {
   return (
     <div className="Imc">
       <div className="main-container">
-        <div ref={mainCalc} className="imc-calc">
+        <div className={`imc-calc ${hide ? 'hide' : ''}`}>
           <h2>Calculadora de IMC</h2>
           <form className="form-imc">
             <label htmlFor="height">Altura: </label>
@@ -157,7 +159,7 @@ function Imc() {
             </div>
           </form>
         </div>
-        <div ref={resultCalc} className="imc-result hide">
+        <div className={`imc-result ${hide ? '' : 'hide'}`}>
           <p className="imc">
             Seu IMC é: <span className={classAlert}>{imc}</span>
           </p>

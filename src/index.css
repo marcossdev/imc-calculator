@@ -1,16 +1,16 @@
 * {
-	margin: 0;
-	box-sizing: border-box;
-	border: 0;
-	font-family: "Open Sans", sans-serif;
-	color: #ffffffde;
+  margin: 0;
+  box-sizing: border-box;
+  border: 0;
+  font-family: 'Open Sans', sans-serif;
+  color: #ffffffde;
 }
 
 body {
-	margin: 0;
-	display: flex;
-	place-items: center;
-	min-width: 100vw;
-	min-height: 100vh;
-	background-color: #090e22;
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: #090e22;
 }

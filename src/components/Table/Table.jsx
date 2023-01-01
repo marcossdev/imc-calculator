@@ -30,13 +30,14 @@ Table.propTypes = {
   tableColumn: PropTypes.arrayOf(
     PropTypes.shape({
       header: PropTypes.string,
-      value: PropTypes.string
+      value: PropTypes.string,
     })
-  )
+  ),
 };
 
 Table.defaultProps = {
   tableData: [{}],
-  tableColumn: [{}]
+  tableColumn: [{}],
 };
+
 export default Table;

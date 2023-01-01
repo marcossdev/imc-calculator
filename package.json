@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite",
+    "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "format": "prettier --tab-width 2 --write \"src/**/*.jsx\"",
+    "format": "prettier --write \"src/**/*.jsx\"",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
@@ -25,10 +25,11 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
     "gh-pages": "^4.0.0",
-    "prettier": "2.8.1",
+    "prettier": "^2.8.1",
     "vite": "^4.0.0"
   }
 }
